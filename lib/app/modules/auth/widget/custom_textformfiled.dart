@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFiled extends StatelessWidget {
-  CustomTextFiled({Key? key, required this.hintText, this.backGround, this.suffixIcon})
+  CustomTextFiled({Key? key, required this.hintText, this.backGround, this.suffixIcon, this.controller})
       : super(key: key);
   final String hintText;
   IconData? suffixIcon;
   Color? backGround;
+  TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       maxLines: 1,
       key: key,
       keyboardType: TextInputType.text,

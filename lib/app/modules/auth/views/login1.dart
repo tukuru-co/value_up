@@ -19,7 +19,7 @@ class LoginView extends GetView<AuthController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Login",
+                Text("サカオク",
                     style: Get.textTheme.subtitle2!
                         .merge(TextStyle(color: Colors.black, fontSize: 31))),
               ],

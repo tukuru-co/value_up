@@ -5,8 +5,13 @@ import 'package:value_up/app/modules/auth/controllers/auth_controller.dart';
 import 'package:value_up/app/modules/auth/widget/custom_button.dart';
 import 'package:value_up/app/modules/auth/widget/custom_textformfiled.dart';
 import 'package:value_up/app/routes/app_routes.dart';
+import 'package:value_up/app/services/auth_service.dart';
 
 class LoginView3 extends GetView<AuthController> {
+
+  TextEditingController _pass = TextEditingController();
+  TextEditingController _email = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +42,9 @@ class LoginView3 extends GetView<AuthController> {
         child: Column(
           children: [
             textLabel('会員登録', '（必須）'),
-            CustomTextFiled(hintText: 'example@email.com'),
+            CustomTextFiled(controller: _email,hintText: 'example@email.com'),
             textLabel('パスワード', '（必須）'),
-            CustomTextFiled(hintText: ''),
+            CustomTextFiled(controller: _pass,hintText: ''),
             textLabel('氏名', '（必須）'),
             CustomTextFiled(hintText: '田中　太郎'),
             textLabel('ニックネーム', '（必須）'),
@@ -146,8 +151,13 @@ class LoginView3 extends GetView<AuthController> {
               height: 19,
             ),
             InkWell(
-              onTap: () {
-                Get.toNamed(Routes.ROOT);
+              onTap: () async{
+                bool result = await register(_email.text, _pass.text);
+                if( result == true){
+                  Get.toNamed(Routes.ROOT);
+                }else{
+
+                }
               },
               child: CustomButton(namevalue: '登録する'),
             ),

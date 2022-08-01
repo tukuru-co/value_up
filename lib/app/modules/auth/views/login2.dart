@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:value_up/app/modules/auth/controllers/auth_controller.dart';
 import 'package:value_up/app/modules/auth/widget/custom_button.dart';
 import 'package:value_up/app/routes/app_routes.dart';
+import 'package:value_up/app/services/auth_service.dart';
 
 class LoginView2 extends GetView<AuthController> {
+  TextEditingController _pass = TextEditingController();
+  TextEditingController _email = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +35,7 @@ class LoginView2 extends GetView<AuthController> {
         children: [
           SizedBox(height: 17),
           TextFormField(
+            controller: _email,
             maxLines: 1,
             key: key,
             keyboardType: TextInputType.text,
@@ -43,9 +49,11 @@ class LoginView2 extends GetView<AuthController> {
             ),
           ),
           TextFormField(
+            controller: _pass,
             maxLines: 1,
             key: key,
             keyboardType: TextInputType.text,
+            obscureText: true,
             decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(0)),
@@ -59,8 +67,22 @@ class LoginView2 extends GetView<AuthController> {
             height: 19,
           ),
           InkWell(
-            onTap: () {
-              Get.toNamed(Routes.LOGIN3);
+            onTap: () async {
+              ///  login
+              bool result = await signIn(_email.text, _pass.text);
+              if(result == true){
+                Get.toNamed(Routes.HOME);
+                // Get.toNamed(Routes.LOGIN3);
+              }else if( result == false){
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Loggin Error'),
+                        content: setupAlertDialoadContainer(),
+                      );
+                    });
+              }
             },
             child: CustomButton(
                 namevalue: 'メールアドレスでログインする', icons: Icons.email_outlined),
@@ -96,6 +118,19 @@ class LoginView2 extends GetView<AuthController> {
             namevalue: "会員登録はこちら",
             backGround: Colors.white,
           )
+        ],
+      ),
+    );
+  }
+
+  Widget setupAlertDialoadContainer() {
+    return Container(
+      height: Get.height/4,
+      width: Get.width/2,
+      child: Column(
+        children: [
+          Icon(Icons.error_outline, color: Colors.red,),
+          Text('LOGIN ERROR',style: TextStyle(color: Colors.black)),
         ],
       ),
     );
