@@ -18,7 +18,6 @@ Future<bool> register(String email, String password) async {
   try {
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
-    print(" đăng kí thành công tại email : $email");
     return true;
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

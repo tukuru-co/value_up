@@ -1,8 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:value_up/app/modules/auth/bindings/auth_bindings.dart';
-import 'package:value_up/app/modules/auth/views/login1.dart';
-import 'package:value_up/app/modules/auth/views/login2.dart';
-import 'package:value_up/app/modules/auth/views/login3.dart';
+import 'package:value_up/app/modules/auth/views/intro.dart';
+import 'package:value_up/app/modules/auth/views/login.dart';
+import 'package:value_up/app/modules/auth/views/register.dart';
 import 'package:value_up/app/modules/home/views/home.dart';
 import 'package:value_up/app/modules/home/views/home_detail1.dart';
 import 'package:value_up/app/modules/home/views/home_detail3.dart';

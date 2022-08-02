@@ -71,7 +71,7 @@ class LoginView2 extends GetView<AuthController> {
               ///  login
               bool result = await signIn(_email.text, _pass.text);
               if(result == true){
-                Get.toNamed(Routes.HOME);
+                Get.toNamed(Routes.ROOT);
                 // Get.toNamed(Routes.LOGIN3);
               }else if( result == false){
                 showDialog(

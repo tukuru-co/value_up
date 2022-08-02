@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:value_up/app/modules/auth/views/login1.dart';
+import 'package:value_up/app/modules/auth/views/intro.dart';
 import 'package:value_up/app/modules/home/views/home.dart';
 
 class RootView extends StatefulWidget {
