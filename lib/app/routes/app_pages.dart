@@ -4,12 +4,11 @@ import 'package:value_up/app/modules/auth/views/intro.dart';
 import 'package:value_up/app/modules/auth/views/login.dart';
 import 'package:value_up/app/modules/auth/views/register.dart';
 import 'package:value_up/app/modules/home/views/home.dart';
-import 'package:value_up/app/modules/home/views/home_detail1.dart';
-import 'package:value_up/app/modules/home/views/home_detail3.dart';
+import 'package:value_up/app/modules/home/views/home_detail.dart';
+import 'package:value_up/app/modules/home/views/home_detail_sold.dart';
 import 'package:value_up/app/modules/root/views/root_view.dart';
 import 'package:value_up/app/routes/app_routes.dart';
 
-import '../modules/home/views/home_detail2.dart';
 
 class Theme1AppPages {
   static const INITIAL = Routes.LOGIN;
@@ -22,7 +21,6 @@ class Theme1AppPages {
     GetPage(name: Routes.LOGIN3, page: () => LoginView3(), binding: AuthBinding()),
     GetPage(name: Routes.HOME, page: () => HomeView(), binding: AuthBinding()),
     GetPage(name: Routes.HOME_DETAIL1, page: () => HomeDetail1(), binding: AuthBinding()),
-    GetPage(name: Routes.HOME_DETAIL2, page: () => HomeDetail2(), binding: AuthBinding()),
     GetPage(name: Routes.HOME_DETAIL3, page: () => HomeDetail3(), binding: AuthBinding()),
   ];
 }

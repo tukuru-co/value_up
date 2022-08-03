@@ -192,6 +192,7 @@ class HomeDetail1 extends GetView<HomeController> {
 
   Widget customItemTabView2() {
     return Container(
+      padding: EdgeInsets.only(left: 13, right: 13, bottom: 20, top: 10),
       child: Center(
         child: Text(
             controller.term?? "No Information",
