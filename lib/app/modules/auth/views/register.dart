@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:custom_switch/custom_switch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,8 +46,7 @@ class LoginView3 extends GetView<AuthController> {
           children: [
             Flexible(
               child: IconButton(
-                icon: Icon(Icons.arrow_back_ios_outlined,
-                    color: Colors.blue),
+                icon: Icon(Icons.arrow_back_ios_outlined, color: Colors.blue),
                 onPressed: () => {Get.back()},
               ),
             ),
@@ -369,6 +371,7 @@ class LoginView3 extends GetView<AuthController> {
     userModel.month = _month.text;
     userModel.day = _day.text;
     userModel.year = _year.text;
+    userModel.password = md5.convert(utf8.encode(_pass.text)).toString();
 
     userModel.gen = _gen.text;
 

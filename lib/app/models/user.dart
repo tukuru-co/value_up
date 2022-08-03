@@ -42,9 +42,10 @@ class UserModel {
   String? month;
   String? day;
   String? year;
+  String? password;
   String? gen;
 
-  UserModel({this.uid, this.email, this.fullName, this.nickName,this.phone, this.month,this.day,this.year,this.gen,});
+  UserModel({this.uid, this.email, this.fullName, this.nickName,this.phone, this.month,this.day,this.year,this.gen,this.password});
 
   // receiving data from server
   factory UserModel.fromMap(map) {
@@ -57,6 +58,7 @@ class UserModel {
       month: map['month'],
       year: map['year'],
       day: map['day'],
+      password: map['password'],
       gen: map['gen'],
     );
   }
@@ -72,6 +74,7 @@ class UserModel {
       'month': month,
       'year': year,
       'day': day,
+      'password': password,
       'gen': gen,
     };
   }
