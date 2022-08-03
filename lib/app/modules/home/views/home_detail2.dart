@@ -12,18 +12,18 @@ class HomeDetail2 extends GetView<HomeController> {
           Container(
             height: Get.height / 3,
             child: Image.network(
-                'https://cdn.tgdd.vn/2020/07/content/h2-800x450-7.png'),
+                controller.imgUrl??'https://cdn.tgdd.vn/2020/07/content/h2-800x450-7.png'),
           ),
           Container(
               padding: EdgeInsets.only(left: 12, right: 10),
               child: Column(
                 children: [
-                  Text('人気の温泉宿！先着２０名に格安に泊まれるチャンス！',
+                  Text(controller.describe??'',
                       style: TextStyle(color: Colors.black, fontSize: 17)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('千葉・船橋 ',
+                      Text(controller.name??' ',
                           style: TextStyle(color: Colors.black, fontSize: 11)),
                       SizedBox(width: 13),
                       Container(
@@ -34,7 +34,10 @@ class HomeDetail2 extends GetView<HomeController> {
                           children: [
                             Icon(Icons.av_timer_outlined,
                                 color: Colors.black.withOpacity(0.4), size: 19),
-                            Text('残り時間02:44:00',
+                            Text('残り時間',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 10)),
+                            Text(controller.time??'00:00:00',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 10)),
                           ],
@@ -45,7 +48,7 @@ class HomeDetail2 extends GetView<HomeController> {
                           style: TextStyle(
                               color: Colors.black.withOpacity(0.4),
                               fontSize: 9)),
-                      Text(' 20,000円',
+                      Text(controller.price??' 0,000円',
                           style: TextStyle(
                               color: Colors.black.withOpacity(0.7),
                               fontSize: 18,
@@ -54,7 +57,7 @@ class HomeDetail2 extends GetView<HomeController> {
                   ),
                   SizedBox(height: 13),
                   Text(
-                      '概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。概要が入ります。  ',
+                      controller.describeDetail??'',
                       style: TextStyle(color: Colors.grey, fontSize: 11)),
                   SizedBox(height: 6),
                   Container(
@@ -159,7 +162,7 @@ class HomeDetail2 extends GetView<HomeController> {
                                   : Colors.grey,
                               width: controller.checkNum.value == 1 ? 4 : 1))),
                   child: Center(
-                    child: Text('商品詳細',
+                    child: Text('ご利用条件',
                         style: TextStyle(
                             color: controller.checkNum == 1
                                 ? Colors.blue
@@ -182,8 +185,7 @@ class HomeDetail2 extends GetView<HomeController> {
     return Container(
       padding: EdgeInsets.only(left: 13, right: 13, bottom: 20, top: 10),
       child: Text(
-          ' 詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入りま',
-          style: TextStyle(color: Colors.grey, fontSize: 12)),
+          controller.detailProduct??"No Information",style: TextStyle(color: Colors.grey, fontSize: 12)),
     );
   }
 
@@ -191,8 +193,7 @@ class HomeDetail2 extends GetView<HomeController> {
     return Container(
       child: Center(
         child: Text(
-            '  詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入ります。詳しい説明が入りま',
-            style: TextStyle(color: Colors.grey, fontSize: 11)),
+            controller.term?? "No Information", style: TextStyle(color: Colors.grey, fontSize: 11)),
       ),
     );
   }

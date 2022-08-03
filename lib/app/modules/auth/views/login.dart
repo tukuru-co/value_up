@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:value_up/app/modules/auth/controllers/auth_controller.dart';
 import 'package:value_up/app/modules/auth/widget/custom_button.dart';
@@ -68,20 +70,12 @@ class LoginView2 extends GetView<AuthController> {
           ),
           InkWell(
             onTap: () async {
-              ///  login
               bool result = await signIn(_email.text, _pass.text);
               if(result == true){
                 Get.toNamed(Routes.ROOT);
                 // Get.toNamed(Routes.LOGIN3);
               }else if( result == false){
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Loggin Error'),
-                        content: setupAlertDialoadContainer(),
-                      );
-                    });
+                Fluttertoast.showToast(msg:"Loggin Error");
               }
             },
             child: CustomButton(
@@ -123,16 +117,4 @@ class LoginView2 extends GetView<AuthController> {
     );
   }
 
-  Widget setupAlertDialoadContainer() {
-    return Container(
-      height: Get.height/4,
-      width: Get.width/2,
-      child: Column(
-        children: [
-          Icon(Icons.error_outline, color: Colors.red,),
-          Text('LOGIN ERROR',style: TextStyle(color: Colors.black)),
-        ],
-      ),
-    );
-  }
 }

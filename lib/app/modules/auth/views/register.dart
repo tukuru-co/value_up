@@ -41,10 +41,19 @@ class LoginView3 extends GetView<AuthController> {
         // automaticallyImplyLeading: false,
         leading: Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios_outlined,
-                  color: Get.theme.hintColor),
-              onPressed: () => {Get.back()},
+            Flexible(
+              child: IconButton(
+                icon: Icon(Icons.arrow_back_ios_outlined,
+                    color: Colors.blue),
+                onPressed: () => {Get.back()},
+              ),
+            ),
+            Flexible(
+              child: Text('戻る',
+                  style: Get.textTheme.subtitle2!.merge(TextStyle(
+                      color: Colors.blue,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500))),
             ),
           ],
         ),
@@ -56,7 +65,7 @@ class LoginView3 extends GetView<AuthController> {
           key: _formKey,
           child: Column(
             children: [
-              textLabel('会員登録', '（必須）'),
+              textLabel('メールアドレス', '（必須）'),
               CustomTextFiled(
                 controller: _email,
                 hintText: 'example@email.com',

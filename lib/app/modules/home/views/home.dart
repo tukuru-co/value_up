@@ -9,11 +9,8 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     Future<QuerySnapshot> users =
         FirebaseFirestore.instance.collection('products').get();
-    // CollectionReference users =
-    //     FirebaseFirestore.instance.collection('products');
 
     return FutureBuilder<QuerySnapshot>(
-      // future: users.doc(documentId).get(),
       future: users,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -72,20 +69,30 @@ class HomeView extends GetView<HomeController> {
                                     fontWeight: FontWeight.w500)),
                           ],
                         ),
+                        SizedBox(height: 12),
                         GridView(
                           scrollDirection: Axis.vertical,
                           primary: false,
                           shrinkWrap: true,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 4.0,
-                              mainAxisSpacing: 4.0),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 4.0,
+                                  mainAxisSpacing: 4.0),
                           children: docs.map((DocumentSnapshot doc) {
                             final data = doc.data() as Map?;
                             return customItemGridView(
-                                name: data!['name'], describe: data['describe'],
-                                title: data['title'], imgUrl: data['imgUrl'],
-                              price: data['price'],price2: data['price2'],
+                              name: data!['name'],
+                              describe: data['discribe'],
+                              title: data['title'],
+                              imgUrl: data['imgUrl'],
+                              price: data['price'],
+                              price2: data['price2'],
+                              time: data['time'],
+                              describeDetail: data['describeDetail'],
+                              detailProduct: data['detailProduct'],
+                              term: data['term'],
+                              priceOld : data['priceOld'],
                             );
                           }).toList(),
                         ),
@@ -98,45 +105,6 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
           );
-          // return DefaultTabController(
-          //   length: 2,
-          //   child: Scaffold(
-          //     appBar: AppBar(
-          //       backgroundColor: Colors.transparent,
-          //       title: Text('サカオク',
-          //           style: Get.textTheme.subtitle2!.merge(TextStyle(
-          //               color: Colors.black,
-          //               fontSize: 15,
-          //               fontWeight: FontWeight.w700))),
-          //       centerTitle: true,
-          //       elevation: 0,
-          //       actions: [
-          //         Icon(
-          //           Icons.notifications_none,
-          //           color: Colors.black54,
-          //         ),
-          //       ],
-          //       bottom: TabBar(
-          //         tabs: [
-          //           Tab(
-          //               child: Text(
-          //                 '開催中',
-          //                 style: TextStyle(color: Colors.black.withOpacity(0.5)),
-          //               )),
-          //           Tab(
-          //               child:
-          //               Text('おすすめ', style: TextStyle(color: Colors.blue))),
-          //         ],
-          //       ),
-          //     ),
-          //     body: TabBarView(
-          //       children: [
-          //         Center(child: Text("No result")),
-          //         reComment(name: data['name'], describe: data['describe']),
-          //       ],
-          //     ),
-          //   ),
-          // );
         }
         return CircularProgressIndicator(backgroundColor: Colors.white);
       },
@@ -144,10 +112,41 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-Widget customItemGridView({ String? title,required String name, String? describe, String? imgUrl, String? price, String? price2}) {
+Widget customItemGridView(
+    {String? title,
+    required String name,
+    String? describe,
+    String? imgUrl,
+    String? price,
+    String? price2,
+    String? time,
+    String? describeDetail,
+    String? detailProduct,
+    String? term, String? priceOld}) {
   return InkWell(
     onTap: () {
-      Get.toNamed(Routes.HOME_DETAIL3);
+      Get.toNamed(Routes.HOME_DETAIL1, arguments: {
+        'imgUrl': imgUrl,
+        'describe': describe,
+        'name': name,
+        'time': time,
+        'price': price2,
+        'describeDetail': describeDetail,
+        'detailProduct': detailProduct,
+        'term': term,
+        'priceOld ': priceOld,
+      });
+      // Get.toNamed(Routes.HOME_DETAIL3, arguments: {
+      //   'imgUrl': imgUrl,
+      //   'describe': describe,
+      //   'name': name,
+      //   'time': time,
+      //   'price': price2,
+      //   'describeDetail': describeDetail,
+      //   'detailProduct': detailProduct,
+      //   'term': term,
+      //   'priceOld ': priceOld,
+      // });
     },
     child: Container(
       height: Get.height / 3,
@@ -159,8 +158,7 @@ Widget customItemGridView({ String? title,required String name, String? describe
             flex: 5,
             child: SizedBox(
               width: Get.width,
-              child: Image.network(
-                  imgUrl!),
+              child: Image.network(imgUrl!),
             ),
           ),
           Flexible(
@@ -170,14 +168,14 @@ Widget customItemGridView({ String? title,required String name, String? describe
                 Expanded(
                   child: Container(
                     padding:
-                        EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
-                    margin: EdgeInsets.only(left: 5, top: 4),
+                        EdgeInsets.only(left: 10, right: 5, top: 4, bottom: 4),
+                    margin: EdgeInsets.only(left: 5, right: 5, top: 4),
                     decoration: BoxDecoration(
                       color: Colors.lightGreen,
                       border: Border.all(width: 0.3, color: Colors.black54),
                       borderRadius: BorderRadius.all(Radius.circular(0)),
                     ),
-                    child: Text( title?? 'ホテル・旅館',
+                    child: Text(title ?? 'ホテル・旅館',
                         style: TextStyle(
                             color: Colors.white.withOpacity(0.5),
                             fontSize: 11)),
@@ -203,7 +201,7 @@ Widget customItemGridView({ String? title,required String name, String? describe
                 Container(
                   padding:
                       EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
-                  margin: EdgeInsets.only(left: 5, top: 4),
+                  margin: EdgeInsets.only(left: 5,right: 7, top: 4),
                   decoration: BoxDecoration(
                     color: Colors.redAccent,
                     border: Border.all(width: 0.3, color: Colors.black54),
@@ -213,20 +211,64 @@ Widget customItemGridView({ String? title,required String name, String? describe
                     children: [
                       Text('千葉',
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.5), fontSize: 13)),
-                      Text(price??'0',
+                              color: Colors.white.withOpacity(0.5),
+                              fontSize: 13)),
+                      Text(price ?? '0',
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.5), fontSize: 13)),
+                              color: Colors.white.withOpacity(0.5),
+                              fontSize: 13)),
                       Text('千',
                           style: TextStyle(
-                              color: Colors.white.withOpacity(0.5), fontSize: 13)),
+                              color: Colors.white.withOpacity(0.5),
+                              fontSize: 13)),
                     ],
                   ),
                 ),
-                Text(price2?? '00,000',
-                    style: TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w700)),
-                Text('円',
-                    style: TextStyle(color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w700)),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      priceOld ?? '0',
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.black54.withOpacity(0.5),
+                          fontSize: 12),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 4),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      '->',
+                      style: TextStyle(
+                          color: Colors.black54.withOpacity(0.6),
+                          fontSize: 15),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 4),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(price2 ?? '0,00',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700)),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text('円',
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700)),
+                  ],
+                ),
               ],
             ),
           ),
